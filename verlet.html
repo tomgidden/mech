@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<script type="text/javascript" src="/mint/?js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+	<script type="text/javascript" src="js/verlet.js"></script>
+
+	<script type="text/javascript">
+var model;
+var timeout;
+
+function init () {
+
+  if(timeout) clearTimeout(timeout);
+
+  $('dump').value = '';
+
+  model = new Model();
+
+  var wedge = new Polygon([[5,100],[295,200],[295,375],[5,375]]);
+  model.polygons.push(wedge);
+
+  var floor = new Polygon([[5,477],[795,477],[795,600],[5,600]]);
+  model.polygons.push(floor);
+
+  var ball = new Ball(200, 100, +$('radius').value, +$('points').value);
+  ball.addToModel(model);
+
+  var box = new Box([[295,108],[450,108],[450,92],[295,92]]);
+  box.addToModel(model);
+
+  var anch = new Anchor(box.ps[0], 295, 100);
+  model.anchors.push(anch);
+
+//  $('bar').style.visibility = null;
+}
+
+function start () {
+  model.step(0.1);
+  model.draw();
+  timeout = setTimeout('start()', 10);
+}
+	</script>
+
+	<style type="text/css">
+#canvas {
+  position:absolute;
+  top:0;
+  left:0;
+  width:800px;
+  height:600px;
+}
+
+.particle {
+  position:absolute;
+  width:6px;
+  height:6px;
+  background-color:blue;
+}
+
+.polypoint {
+  position:absolute;
+  width:6px;
+  height:6px;
+  background-color:red;
+}
+
+.thing {
+  position:absolute;
+  background:#f77;
+}
+
+.box {
+  position:absolute;
+  background:#7f7;
+}
+
+.ball {
+  position:absolute;
+  background:#77f url('ball.png') center center no-repeat;
+}
+
+	</style>
+  </head>
+  <body>
+	<div id="canvas"></div>
+	<div style="position:absolute; top:0; right:0;">
+	  <form>
+		<input type="button" onclick="init()" value="init" />
+		<input type="button" id="bar" onclick="start()" value="start" style="xvisibility:hidden" /><br/>
+		radius:<input type="text" id="radius" value="20" /><br/>
+		points:<input type="text" id="points" value="10" /><br/>
+		iter:<input type="text" id="iter" value="10" /><br/>
+		fric:<input type="text" id="friction" value="5" /><br/>
+		grav:<input type="text" id="gravity" value="120" /><br/>
+		elas:<input type="text" id="elasticity" value="0.95" /><br/>
+		<textarea id="dump" cols=20 rows=10></textarea>
+	  </form>
+	</div>
+  </body>
+</html>

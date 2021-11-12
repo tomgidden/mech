@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <body>
+	<a href="http://gidden.net/tom"><h1><span>Tom Gidden</span></h1></a>
+
+	<div id="content">
+	  <div class="post single">
+		<h2>Mechanics and Geometry Experiments</h2>
+		<ul class="byline">
+		  <li class="first">by Tom Gidden</li>
+		  <li class="timedate first">November 2006 - January 2007 (ongoing)</li>
+		</ul>
+
+		<div class="entry">
+		<p>These pages are simple Javascript experiments with various geometric situations to try things out.</p>
+
+		<p>They are most likely to work in Firefox, but will probably run fastest in Opera if at all.  Safari is okay, as is Camino.</p>
+
+		<ul>
+		  <li><a href="1.html">Experiment 1</a>: Intersection between a stationary circle and a polygon.  Comparison of line normals against direction to intersection points gives whether the circle is inside or outside the polygon.  Uses the circle/line intersection test.</li>
+
+		  <li><a href="2.html">Experiment 2</a>: Collision of circle in motion against a line.  Uses similar triangles to work out collision "time", and then reflects both C and C-prime in the line to give new positions for constraints.</li>
+
+		  <li><a href="3a.html">Experiment 3a</a>: Intersection of a circle in motion against a polygon, including corners.  Uses two methods: similar triangles technique for collision against edges, and circle/line intersection test for collision against corners.  Uses the first collision, using simple minimum finding.</li>
+
+		  <li><a href="3b.html">Experiment 3b</a>: As above, but using simpler algorithms.</li>
+
+		  <li><strong>NEW 2-Jan-07:</strong> <a href="4.html">Experiment 4</a>: Oliver Humpage kindly wrote some PHP code simulating a simple collision between a point and a polygon.  I've translated this to the same framework I've used here.</li>
+
+		  <li><strong>NEW 3-Jan-07:</strong> <a href="5.html">Experiment 5</a>: First step in calculating mass moment of inertia (MMI): triangulation of simple (but not necessarily convex) polygon using <a href="http://www-cgrl.cs.mcgill.ca/~godfried/teaching/cg-projects/97/Ian//cutting_ears.html">Ear Cutting</a>.  This is non-optimal, but since the search for a simpler mechanism <a href="http://maven.smith.edu/~orourke/TOPP/P10.html">an open problem</a>, I'm okay with going for the <span class="eqn">O(n<sup>2</sup>)</span> solution since we're only doing this once (as long as the polygon doesn't change shape), and we're only doing it for a small <span class="eqn">n</span>.</li>
+
+		  <li><strong>NEW 3-Jan-07:</strong> <a href="6a.html">Experiment 6a</a>: MMI test, using <span class="eqn">bh<sup>3</sup>/36</span>, which doesn't seem right.  Comparison circles are also given.  One problem here is confusion between (scalar) {mass,polar,area} moments of inertia, probably thanks to structural engineers making a mockery of the terminology.  In particular, I think the author of <a href="http://lab.polygonal.de/2006/08/17/calculating-the-moment-of-inertia-of-a-convex-polygon/">this page</a> has picked the wrong one (possibly "area" rather than "mass").  Wikipedia's <a href="http://en.wikipedia.org/wiki/List_of_moments_of_inertia">not helpful on this point</a>, and my calculus isn't really up to <a href="http://en.wikipedia.org/wiki/Moment_of_inertia#Scalar_moment_of_inertia">the task</a>.  Finding a formula for the MMI around the centroid of a triangle (in 2D) is proving difficult.  I'm not sure if this value will even help:  the parallel axis theorem only works for axes in the plane of the shape, while we're trying to get it around an axis normal to the plane of the shape.</li>
+
+		  <li><strong>NEW 9-Jan-07:</strong> <a href="6b.html">Experiment 6b</a>: The above method doesn't seem to work, so trying <a href="http://www.physicsforums.com/showpost.php?p=212538">a different method</a>.  Seems to work well, although the figures go weird when the triangle is "inverted", ie. the vertices are anticlockwise.</li>
+
+		  <li><strong>NEW 9-Jan-07:</strong> <a href="6c.html">Experiment 6c</a>: Brute force approach, by gridding the triangle and treating each point as a point mass.  This should give an approximation for comparison of the other experiments.  Interestingly, there seems to be a relationship between the approximation and the largest (pale blue) circle (bounding circle around the centroid).  For an equilateral triangle, the approximation is about half that of the circle, and for a sliver-like oblique triangle, it's about 27%.  I suspect the range might be &frac14; to &frac12;, in inverse relation to the largest angle of the triangle <span class="eqn">(60&deg;&rArr;&frac12;, 180&deg;&rArr;&frac14;)</span>, but not necessarily inverse proportional.  The sliver, of course, tends to that of a thin rod, given by <span class="eqn">(ml<sup>2</sup>)/12</span>.  As the rod has no area (our current analogue for mass), it gets tricky.</li>
+
+		  <li><strong>NEW 9-Jan-07:</strong> <a href="6d.html">Experiment 6d</a>: To compare the results of 6b and 6c.  Seems to match very well.</li>
+
+		  <li><strong>NEW 9-Jan-07:</strong> <a href="7.html">Experiment 7</a>: Combines Experiment 5 with Experiment 6d to demonstrate the use of the MMI calculations on the arbitrary simple polygon.  The methods are functionized, and also parameterized to allow a different rotation axis point to the triangle's centroid: in this case, the polygon's centroid.  It demonstrates that the method from Experiment 6b is correct and general enough to use for the polygon.  <strong>This confirms the mass moment of inertia of a simple polygon around an axis normal to the plane of the polygon and through its centroid!</strong></li>
+
+		  <li><a href="verlet.html">Verlet Experiment</a>: Test of point-based verlet integration mechanism.  Simulates all objects as point meshes.  Too slow!</li>
+
+		  <li><a href="mandel.html">Mandelbrot</a>: To demonstrate to Steve how canvasses work.  WARNING: Runs badly in anything but Opera.</li>
+		</ul>
+	  </div>
+	  </div>
+	</div>
+
+  </body>
+</html>

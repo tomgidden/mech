@@ -1,0 +1,29 @@
+#c {
+  position:absolute;
+  top:0;
+  left:0;
+  background:#ddd;
+}
+
+#debug {
+  position:absolute;
+  top:2em;
+  right:0;
+}
+
+#debug th {
+  font-size:0.85em;
+  width:200px;
+  font-weight:normal;
+  text-align:right;
+}
+
+#menuForm {
+  position:absolute;
+  top:0;
+  right:0;
+}
+
+#menuForm select {
+  font-size:x-small;
+}
